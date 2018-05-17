@@ -1,0 +1,284 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="surveyor.css" rel="stylesheet">
+    <script src="https://unpkg.com/underscore@1.9.0/underscore.js"></script>
+</head>
+<body>
+    <header id="header" class="center-align">
+        <div class="row">
+            <div class="col s12">
+                <h4>¿Cuáles son tus estilos de comunicación?</h4>
+                <p>Respondiendo esta serie de preguntas, podrás identificar los estilos de comunicación
+                    con los que te desenvolvés en el día y día.
+                    Esta herramienta te permitirá detectar los modos más efectivos de comunicarte 
+                    con tus compañeros.</p>
+                    <a href="#" data-js="begin" class="waves-effect waves-light btn-large">¡Comenzar!</a>                
+                </div>
+            </div>
+        </header>
+        <main id="survey" class="container valign-wrapper">
+        </main>
+        <progress class="survey" value="0" max="0"></progress>
+        <div data-template="question">
+            <h4 data-js="question" class="question center-align"></h4>
+            <div class="row answers">
+                <a data-js="answer" data-value="negative" href="#" class="col s4 waves-effect waves-light btn-large blue-grey lighten-5 black-text"><i class="large material-icons">thumb_down</i></a>
+                <a data-js="answer" data-value="neutral" href="#" class="col s4 waves-effect waves-light btn-large blue-grey lighten-5 black-text"><i class="large material-icons">help_outline</i></a>
+                <a data-js="answer" data-value="positive" href="#" class="col s4 waves-effect waves-light btn-large blue-grey lighten-5 black-text"><i class="large material-icons">thumb_up</i></a>
+            </div>                
+        </div>
+        <section id="results">
+            <h4>¡Aquí están tus resultados!</h4>
+            <div class="row">
+                <div class="col s6">Orientado a <strong>P</strong>ersonas y agradable</div>
+                <progress class="style col s6" data-type="P" max="14" value="0"></progress>
+            </div>
+            <div class="row">
+                <div class="col s6"><strong>E</strong>mprendedor y cautivador</div>
+                <progress class="style col s6" data-type="E" max="14" value="0"></progress>
+            </div>
+            <div class="row">
+                <div class="col s6"><strong>A</strong>nalítico y preciso</div>
+                <progress class="style col s6" data-type="A" max="14" value="0"></progress>
+            </div>
+            <div class="row">
+                <div class="col s6">Orientado a <strong>T</strong>iempo y tareas</div>
+                <progress class="style col s6" data-type="T" max="14" value="0"></progress>
+            </div>            
+            <p>Ahora, podés hacer el cuestionario de <a href="stress-conditions.html" target="_blank">estilos bajo estrés</a> y comparar tus preferencias.</a></p>
+        </section>
+    <script>
+        var questions = [
+        { 
+            text: 'Me centro en los sentimientos y en las ideas.',
+            style: 'P',
+        },
+        {
+            text: 'Me siento más cómodo tomando decisiones que benefician a todos.',
+            style: 'P',
+        },
+        {
+            text: 'Me oriento hacia los demás.',
+            style: 'P',
+        },
+        {
+            text: 'Me siento incómodo con el conflicto, busco evitarlo.',
+            style: 'P',
+        },
+        {
+            text: 'Trabajo construyendo confianza y armonía.',
+            style: 'P',
+        },
+        {
+            text: 'Me gusta construir grupos y redes de contacto.',
+            style: 'P',
+        },
+        {
+            text: 'Tomo decisiones basadas en la equidad y la justicia.',
+            style: 'P',
+        },
+        {
+            text: 'Enfatizo la armonía, la colaboración y el consenso.',
+            style: 'P',
+        },
+        {
+            text: 'Uso frases tales como "estamos todos juntos en esto".',
+            style: 'P',
+        },
+        {
+            text: 'Intento involucrar a otros.',
+            style: 'P',
+        },
+        {
+            text: 'Tengo problemas para decir "no".',
+            style: 'P',
+        },
+        {
+            text: 'Prefiero trabajar en un entorno de equipo.',
+            style: 'P',
+        },
+        {
+            text: 'Describo mi estilo de comunicación como informal y amistoso.',
+            style: 'P',
+        },
+        {
+            text: 'Permito libremente que otros tomen el control.',
+            style: 'P',
+        },
+        { 
+            text: 'Disfruto asumiendo riesgos.',
+            style: 'E',
+        },
+        {
+            text: 'Pongo el énfasis en lo excepcional y en las posibilidades.',
+            style: 'E',
+        },
+        {
+            text: 'Me veo como un catalizador/facilitador para el cambio.',
+            style: 'E',
+        },
+        {
+            text: 'Intento vender mis ideas con entusiasmo.',
+            style: 'E',
+        },
+        {
+            text: 'Evito el detalle y el análisis profundo.',
+            style: 'E',
+        },
+        {
+            text: 'Me gusta construir grupos y redes de contacto.',
+            style: 'E',
+        },
+        {
+            text: 'Tomo decisiones basadas en el instinto.',
+            style: 'E',
+        },
+        {
+            text: 'A veces estiro o rompo las reglas.',
+            style: 'E',
+        },
+        {
+            text: 'A veces hablo más de lo que escucho.',
+            style: 'E',
+        },
+        {
+            text: 'Muestro creatividad e innovación.',
+            style: 'E',
+        },
+        {
+            text: 'Me gusta explorar nuevas ideas y alternativas.',
+            style: 'E',
+        },
+        {
+            text: 'A veces hablo antes de pensar.',
+            style: 'E',
+        },
+        {
+            text: 'Hablo y escribo rápido, usando frases largas.',
+            style: 'E',
+        },
+        {
+            text: 'Uso frases como "Confiá en mí" y "¿Qué pasaría sí...?".',
+            style: 'E',
+        },
+        { 
+            text: 'Enfatizo la calidad y la precisión.',
+            style: 'A',
+        },
+        {
+            text: 'Quiero hacer las cosas bien a la primera, aunque me lleve más tiempo.',
+            style: 'A',
+        },
+        {
+            text: 'Tomo decisiones basadas en el análisis y en la objetividad.',
+            style: 'A',
+        },
+        {
+            text: 'Prefiero actuar de forma independiente.',
+            style: 'A',
+        },
+        {
+            text: 'Me gusta evaluar los pros y contras y el coste-beneficio.',
+            style: 'A',
+        },
+        {
+            text: 'Necesito tener las cosas planificadas de antemano.',
+            style: 'A',
+        },
+        {
+            text: 'Me siento cómodo con las reglas y los estándares.',
+            style: 'A',
+        },
+        {
+            text: 'Prefiero evitar o minimizar los riesgos.',
+            style: 'A',
+        },
+        {
+            text: 'Tiendo hacia lo que funcionó en el pasado.',
+            style: 'A',
+        },
+        {
+            text: 'Presento los detalles con lógica.',
+            style: 'A',
+        },
+        {
+            text: 'Pido y doy respuestas profundas.',
+            style: 'A',
+        },
+        {
+            text: 'Describo mi estilo de comunicación como lógico y basado en hechos.',
+            style: 'A',
+        },
+        {
+            text: 'Me gusta tener la razón.',
+            style: 'A',
+        },
+        {
+            text: 'Tengo pensamientos del tipo "Si quieres que salga algo bien, hazlo tú mismo".',
+            style: 'A',
+        },
+        {
+            text: 'Disfruto haciendo varias cosas a la vez.',
+            style: 'T',
+        },
+        {
+            text: 'Enfatizo la acción y los resultados.',
+            style: 'T',
+        },
+        {
+            text: 'Me gusta tener varias cosas abiertas al mismo tiempo.',
+            style: 'T',
+        },
+        {
+            text: 'Tomo el control de las situaciones.',
+            style: 'T',
+        },
+        {
+            text: 'Tomo decisiones basadas en datos agregados.',
+            style: 'T',
+        },
+        {
+            text: 'Oculto mis sentimientos personales (excepto quizá la rabia).',
+            style: 'T',
+        },
+        {
+            text: 'Prefiero actuar de forma bastante independiente.',
+            style: 'T',
+        },
+        {
+            text: 'A veces soy demasiado directo.',
+            style: 'T',
+        },
+        {
+            text: 'Prefiero interacciones breves y directas.',
+            style: 'T',
+        },
+        {
+            text: 'Me molesta perder.',
+            style: 'T',
+        },
+        {
+            text: 'Muestro impaciencia con los progresos lentos.',
+            style: 'T',
+        },
+        {
+            text: 'Hablo y escribo usando frases cortas.',
+            style: 'T',
+        },
+        {
+            text: 'Uso frases tales como "¿Cuál es el resultado?".',
+            style: 'T',
+        },
+        {
+            text: 'Tengo pensamientos del tipo "Si quieres que algo se haga a tu manera, es más fácil que lo hagas tú mismo".',
+            style: 'T',
+        },            
+        ].sort(Math.random);
+    </script>
+    <script src="surveyor.js"></script>
+</body>
+</html>

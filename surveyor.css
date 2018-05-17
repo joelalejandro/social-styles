@@ -1,0 +1,12 @@
+        body { font-family: "Open Sans"; } 
+        #survey, [data-template], #results { display: none } 
+        header, .question { position: absolute; width: 100%; left: 0; height: 80%; display: flex; align-items: center; justify-content: center; }
+        #results { position: absolute; width: 100%; left: 0; height: 80%; align-items: center; justify-content: center; }
+        header, #results { padding: 0 10%; }
+        .answers { position: absolute; height: 20%; bottom: 0; width: 100%; left: 0; display: flex; align-items: center; justify-content: center; padding: 0 10%; }
+        progress.survey { position: absolute; width: 100%; top: 0; border: 0; border-radius: 0; -webkit-appearance: none; height: 4px; }
+        progress.style { width: 200px; height: 20px; -webkit-appearance: none; }
+        progress::-webkit-progress-value { background: #369; }
+        progress::-webkit-progress-bar { background: #9cf; }
+        #results strong { color: #369; text-decoration: underline; font-size: 120%; }
+        #results h4 { text-align: center; }
