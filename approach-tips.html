@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <link href="surveyor.css" rel="stylesheet">
+    <script src="https://unpkg.com/underscore@1.9.0/underscore.js"></script>
+    <style>
+        #tips-list { margin-top: 50pt; }
+        #tips-list li { font-size: 16pt; padding-bottom: 20pt;}
+        #tips-list li::before { content: '✓'; color: #9cf; padding-right: 16pt; } 
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col s6">
+                <h4>¿Cómo puedo comunicarme más efectivamente?</h4>
+                <form>
+                    <p>Mi estilo de comunicación es:</p>
+                    <p><label>
+                        <input name="first" value="P" type="radio" />
+                        <span>Orientado a personas</span>
+                    </label></p>
+                    <p><label>
+                        <input name="first" value="E" type="radio" />
+                        <span>Emprendedor y cautivador</span>
+                    </label></p>
+                    <p><label>
+                        <input name="first" value="A" type="radio" />
+                        <span>Analítico y preciso</span>
+                    </label></p>
+                    <p><label>
+                        <input name="first" value="T" type="radio" />
+                        <span>Orientado a tareas</span>
+                    </label></p>
+                    <p>y estoy trabajando con una persona cuyo estilo de comunicación es:</p>
+                    <p><label>
+                        <input name="second" value="P" type="radio" />
+                        <span>Orientado a personas</span>
+                    </label></p>
+                    <p><label>
+                        <input name="second" value="E" type="radio" />
+                        <span>Emprendedor y cautivador</span>
+                    </label></p>
+                    <p><label>
+                        <input name="second" value="A" type="radio" />
+                        <span>Analítico y preciso</span>
+                    </label></p>
+                    <p><label>
+                        <input name="second" value="T" type="radio" />
+                        <span>Orientado a tareas</span>
+                    </label></p>
+                </form>
+            </div>
+            <div section="col s6">
+                <div class="valign-wrapper">
+                    <ul id="tips-list"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var tips = {
+            A: {
+                A: [
+                'Planificá conjuntamente',
+                'Ponete de acuerdo en qué datos son importantes desde el principio',
+                'Presentá información escrita',
+                'Discutí los pros y los contras, pero no te detengas en los datos',
+                'Promové una toma de riesgos inteligentes',
+                'Prestá atención a los detalles',
+                'Buscá llegar a decisiones',
+                'Dale importancia a la lógica, a la precisión y la calidad'
+                ],
+                E: [
+                'Discutí las causas y efectos, así como los escenarios "qué pasa si" y "entonces"',
+                'Cuando se llegue a acuerdos, solucioná las detalles',
+                'Escuchá activamente y dales tiempo para hablar',
+                'Acordá medidas clave',
+                'Reconocé sus ideas',
+                'Centrate en su entusiasmo y aspiraciones',
+                'Colaborá - no compitas por ideas ni por la atención'
+                ],
+                T: [
+                'Ofrecé alternativas que tengan probabilidades de éxito',
+                'Sé preciso y disciplinado con el tiempo',
+                'Andá preparado y directo al grano',
+                'Sé respetuoso, pero directo',
+                'Presentá los hechos de forma resumida',
+                'Hacé énfasis en los resultados',
+                'Centrate en los objetivos clave'
+                ],
+                P: [
+                'Compartí datos e información',
+                'Cuando no estés de acuerdo, discutí opiniones y sentimientos, no solo hechos y lógica',
+                'Ofrecé apoyo y ayuda',
+                'Sé informal, pero centrado',
+                'Enfatizá el espíritu de equipo',
+                'Actuá de forma colaborativa',
+                'Sé sincero, compartí tus sentimientos'
+                ]
+            },
+            E: {
+                E: [
+                'Ponete de acuerdo en los objetivos comunes',
+                'Estructurá las interacciones para que ambos tengan la misma oportunidad de tiempo',
+                'Mantené una escucha activa',
+                'Determiná cómo se va a medir el éxito',
+                'Centrate en su entusiasmo y aspiraciones',
+                'Colaborá - no compitas por ideas, ni por la atención'
+                ],
+                A: [
+                'Proporcioná evidencias tangibles, no solo opiniones',
+                'Respetá las reglas existentes',
+                'Presentá información escrita',
+                'Discutí los pros y los contras',
+                'Preguntá qué información adicional es necesaria',
+                'Dale importancia a la lógica, a la precisión y a la calidad',
+                ],
+                T: [
+                'Reconocé sus ideas',
+                'Hacé preguntas que alienten el descubrimiento',
+                'Andá preparado y directo al grano',
+                'Sé respetuoso, pero directo',
+                'Presentá los hechos resumidos',
+                'Hacé énfasis en los resultados',
+                'Centrate en los objetivos',
+                'Tanteá su deseo de tomar el control'
+                ],
+                P: [
+                'Preguntá cómo se sienten con tus ideas',
+                'Si las decisiones se toman rápido, explorá áreas de posible insatisfacción',
+                'Ofrecé apoyo y ayuda',
+                'Enfatizá el espíritu de equipo',
+                'Actuá de forma colaborativa',
+                'Sé informal, pero centrado',
+                'Sé sincero, compartí tus sentimientos'
+                ]
+            },
+            P: {
+                P: [
+                'Acordá quién hace qué y cuándo',
+                'Tené valor - dá feedback en el momento oportuno si las cosas no marchan bien',
+                'Ofrecé apoyo y ayuda',
+                'Determiná cómo se medirá el éxito',
+                'Actuá de forma colaborativa',
+                'Sé informal, pero centrado',
+                'Sé sincero, compartí tus sentimientos',
+                ],
+                E: [
+                'No dejes que pase el tiempo',
+                'Ayudale a centrar sus ideas',
+                'Escuchá activamente y dale tiempo para hablar',
+                'Presentá seguimiento por escrito',
+                'Reconocé sus ideas',
+                'Centrate en su entusiasmo y en sus aspiraciones',
+                'Colaborá - no compitas por ideas, ni por la atención'
+                ],
+                A: [
+                'Minimizá la conversación',
+                'Llegá rápido al tema y mantenete en lo que hay que hacer',
+                'Presentá la información por escrito',
+                'Discutí pros y contras',
+                'Preguntá qué datos adicionales son necesarios',
+                'Prestá atención a los detalles',
+                'Dale importancia a la lógica, a la precisión y a la calidad'
+                ],
+                T: [
+                'Socializá poco',
+                'Cuando no estés de acuerdo, hablá sobre hechos - no sobre sentimientos',
+                'Hacé énfasis en los resultados',
+                'Andá preparado y directo al grano',
+                'Sé respetuoso, pero directo',
+                'Presentá los hechos resumidos',
+                'Centrate en los objetivos',
+                ],
+            },
+            T: {
+                T: [
+                'Ponete de acuerdo en los objetivos comunes',
+                'Detallá las reglas básicas y las responsabilidades de antemano',
+                'Determiná quién está a cargo de qué',
+                'Mantenete centrado en los resultados',
+                'Ceñite a los hechos y no emitas juicios',
+                'Hacé énfasis en los resultados',
+                'Presentá los hechos resumidos',
+                'Sé respetuoso, pero directo'
+                ],
+                E: [
+                'Desarrollá ideas y enfoques en común',
+                'No intentés tomar el control abiertamente',
+                'Escuchá activamente y dale tiempo para hablar',
+                'Presentá seguimiento por escrito',
+                'Reconocé sus ideas',
+                'Centrate en su entusiasmo y aspiraciones',
+                'Colaborá - no compitas por ideas y atención',
+                ],
+                A: [
+                'Permití tiempo para el proceso de toma de decisiones',
+                'Da tiempo para verificar los hechos',
+                'Presentá la información por escrito',
+                'Discutí los pros y contras',
+                'Preguntá qué datos adicionales hacen falta',
+                'Prestá atención a los detalles',
+                'Dale importancia a la lógica, a la precisión y a la calidad'
+                ],
+                P: [
+                'Sé informal, pero centrado',
+                'Descubrí lo que realmente quieren en lugar de lo que vos pensás que ellos quieren',
+                'Ofrecé ayuda y apoyo',
+                'Explorá los impactos en el equipo',
+                'Actuá de forma colaborativa',
+                'Sé sincero, compartí tus sentimientos',
+                'Tanteá tus habilidades para entablar relaciones'
+                ],
+            },
+        };
+
+        function renderTips() {
+            var firstType = document.querySelector('[name="first"]:checked');
+            var secondType = document.querySelector('[name="second"]:checked');
+            var list = document.querySelector('#tips-list');
+            
+            if (!firstType || !secondType) {
+                return;
+            }
+
+            list.innerHTML = '';
+
+            tips[firstType.value][secondType.value].map(function (tip) {
+                var li = document.createElement('li');
+                li.innerHTML = tip;
+                return li;
+            }).forEach(function (tip) {
+                list.appendChild(tip);
+            });
+        }
+
+        document.addEventListener('click', function (e) {
+            if (e.target && ['first', 'second'].indexOf(e.target.name) > -1) {
+                renderTips();
+            }
+        });
+    </script>
+</body>
+</html>
